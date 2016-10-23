@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using static System.Console;
 
 /* 
@@ -41,8 +42,24 @@ namespace PasswordGenerator
             string charsCaps = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             string chars = "abcdefghijklmnopqrstuvwxyz";
             string nums = "0123456789";
-            string symbols = "!@#$%^&*_=+-/€.?<>)";
-            return $"{chars + (isCapsEnable ? charsCaps : string.Empty) + (isSymbolsEnable ? symbols : string.Empty) + (isNumberEnable ? nums : string.Empty)  }";
+            string symbols = @"€+'!@#_\&*|}^%/:?]([-,)${.>~;<=";
+            string passwordSymbols = $"{chars + (isCapsEnable ? charsCaps : string.Empty) + (isSymbolsEnable ? symbols : string.Empty) + (isNumberEnable ? nums : string.Empty)  }";
+            return Shuffle(passwordSymbols);
+        }
+
+        static string Shuffle(string password)
+        {
+            char[] array = password.ToCharArray();
+            int n = array.Length;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                var value = array[k];
+                array[k] = array[n];
+                array[n] = value;
+            }
+            return new string(array);
         }
     }
 }
