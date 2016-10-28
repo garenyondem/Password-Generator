@@ -44,10 +44,10 @@ namespace PasswordGenerator
             string nums = "0123456789";
             string symbols = @"€+'!@#_\&*|}^%/:?]([-,)${.>~;<=";
             string passwordSymbols = $"{chars + (isCapsEnable ? charsCaps : string.Empty) + (isSymbolsEnable ? symbols : string.Empty) + (isNumberEnable ? nums : string.Empty)  }";
-            return Shuffle(passwordSymbols);
+            return Shuffle(ref passwordSymbols);
         }
 
-        static string Shuffle(string password)
+        static string Shuffle(ref string password)
         {
             char[] array = password.ToCharArray();
             int n = array.Length;
